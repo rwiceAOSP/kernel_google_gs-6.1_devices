@@ -29,3 +29,9 @@ download_artifacts_repo(
     files = ["fips140.ko"],
     target = "kernel_aarch64_fips140",
 )
+
+new_local_repository(
+    name = "bionic",
+    build_file = "private/devices/google/common/workspace/bionic.BUILD.bazel",
+    path = "external/bionic",
+)
