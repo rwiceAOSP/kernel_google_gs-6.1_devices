@@ -29,6 +29,18 @@ if [ "${BUILD_STAGING_KERNEL}" = "1" ]; then
   parameters=("--kernel_package=staging")
 fi
 
+TARGET_BMS_LINK="${WORKSPACE_DIR}/private/google-modules/bms"
+STALLION_BMS_SRC="${WORKSPACE_DIR}/private/google-modules/.bms-stallion"
+COMMON_BMS_SRC="${WORKSPACE_DIR}/private/google-modules/.bms"
+
+if [ "${DEVICE}" = "stallion" ]; then
+  rm -f "${TARGET_BMS_LINK}"
+  ln -s "${STALLION_BMS_SRC}" "${TARGET_BMS_LINK}"
+else
+  rm -f "${TARGET_BMS_LINK}"
+  ln -s "${COMMON_BMS_SRC}" "${TARGET_BMS_LINK}"
+fi
+
 exec "${WORKSPACE_DIR}/tools/bazel" run \
   "${parameters[@]}" \
   --config="${DEVICE}" \
